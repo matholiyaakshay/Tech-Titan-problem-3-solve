@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Career Jobs</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: #f1f5f9;
+      }
+
+      h1 {
+        text-align: center;
+        color: #1e293b;
+        margin-top: 30px;
+      }
+
+      .dropdown-container {
+        text-align: center;
+        margin: 20px;
+      }
+
+      select {
+        font-size: 16px;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        outline: none;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 25px;
+        padding: 40px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+      }
+
+      .card:hover {
+        transform: scale(1.03);
+      }
+
+      .card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+      }
+
+      .card h3 {
+        margin: 12px;
+        font-size: 18px;
+        color: #1e293b;
+      }
+
+      .details {
+        padding: 20px;
+        background: white;
+        margin: 20px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .details h2 {
+        color: #1e40af;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Choose a Career</h1>
+    <div class="dropdown-container">
+      <select id="careerSelect">
+        <option value="">-- Select a Career --</option>
+      </select>
+    </div>
+    <div class="grid" id="careerGrid">
+      <!-- Cards inserted here dynamically -->
+    </div>
+    <div class="details" id="careerDetails"></div>
+
+    <script>
+      const careers = [
+        {
+          title: "Software Engineer",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6XIXgb5TfzUIrbyzcs-d9QX1Bf1cfqUQKVA&usqp=CAU",
+          description: `
+            <h2>Software Engineer</h2>
+            <p><strong>Description:</strong> Design, build, and maintain software systems and applications.</p>
+            <p><strong>Skills:</strong> Programming, problem-solving, teamwork, algorithms.</p>
+            <p><strong>Opportunities:</strong> 92% demand globally.</p>
+            <p><strong>Top Companies:</strong> Google, Microsoft, Infosys, TCS.</p>
+            <p><strong>Salary:</strong> ₹6-25 LPA</p>
+          `,
+        },
+        {
+          title: "Doctor",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW6D71TC7Gqhv_2SDTDxPLyx5c_pDbid_g5A&usqp=CAU",
+          description: `
+            <h2>Doctor</h2>
+            <p><strong>Description:</strong> Diagnose and treat medical conditions, promoting patient health.</p>
+            <p><strong>Skills:</strong> Biology, compassion, decision-making, communication.</p>
+            <p><strong>Opportunities:</strong> 85% job growth in healthcare sector.</p>
+            <p><strong>Top Employers:</strong> Apollo, Fortis, AIIMS, Max Healthcare.</p>
+            <p><strong>Salary:</strong> ₹10-40 LPA</p>
+          `,
+        },
+        {
+          title: "Chartered Accountant",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVFFAnfJYZKJ9sOQ2wBBJCEYy_MF7GKu5hSg&usqp=CAU",
+          description: `
+            <h2>Chartered Accountant</h2>
+            <p><strong>Description:</strong> Manage accounting, auditing, taxation, and financial analysis.</p>
+            <p><strong>Skills:</strong> Math, finance, analytics, ethics.</p>
+            <p><strong>Opportunities:</strong> 78% in corporate finance and auditing.</p>
+            <p><strong>Top Employers:</strong> Deloitte, KPMG, EY, PwC.</p>
+            <p><strong>Salary:</strong> ₹7-20 LPA</p>
+          `,
+        },
+        {
+          title: "Civil Engineer",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj3eKVi4UzB4tX6hXHHxmdTwDrpPSsHhOK0A&usqp=CAU",
+          description: `
+            <h2>Civil Engineer</h2>
+            <p><strong>Description:</strong> Plan, design, and oversee infrastructure projects like roads and bridges.</p>
+            <p><strong>Skills:</strong> Structural design, CAD, project management.</p>
+            <p><strong>Opportunities:</strong> 70% demand in public and private sector.</p>
+            <p><strong>Top Companies:</strong> L&T, Gammon, Tata Projects.</p>
+            <p><strong>Salary:</strong> ₹4-15 LPA</p>
+          `,
+        },
+        {
+          title: "Graphic Designer",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSToGkmpLgPyMWM3QuZdzFVQgqU7eHeqGVNBw&usqp=CAU",
+          description: `
+            <h2>Graphic Designer</h2>
+            <p><strong>Description:</strong> Create visuals for marketing, branding, and web design.</p>
+            <p><strong>Skills:</strong> Adobe Suite, creativity, layout, typography.</p>
+            <p><strong>Opportunities:</strong> 65% growth in design and digital media.</p>
+            <p><strong>Top Companies:</strong> Wipro, Adobe, startups, agencies.</p>
+            <p><strong>Salary:</strong> ₹3-10 LPA</p>
+          `,
+        },
+        {
+          title: "Data Scientist",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoEEG4FOkWgV9PUFNRtZVt7S6kkqKzMG1x5Q&usqp=CAU",
+          description: `
+            <h2>Data Scientist</h2>
+            <p><strong>Description:</strong> Analyze large datasets to derive actionable insights using statistics and AI.</p>
+            <p><strong>Skills:</strong> Python, machine learning, data visualization.</p>
+            <p><strong>Opportunities:</strong> 95% demand in tech and finance sectors.</p>
+            <p><strong>Top Companies:</strong> IBM, Flipkart, Amazon, Accenture.</p>
+            <p><strong>Salary:</strong> ₹8-30 LPA</p>
+          `,
+        },
+      ];
+
+      const grid = document.getElementById("careerGrid");
+      const details = document.getElementById("careerDetails");
+      const dropdown = document.getElementById("careerSelect");
+
+      careers.forEach((career) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${career.img}" alt="${career.title}" />
+          <h3>${career.title}</h3>
+        `;
+        card.onclick = () => {
+          details.innerHTML = career.description;
+          details.scrollIntoView({ behavior: "smooth" });
+        };
+        grid.appendChild(card);
+
+        const option = document.createElement("option");
+        option.value = career.title;
+        option.textContent = career.title;
+        dropdown.appendChild(option);
+      });
+
+      dropdown.addEventListener("change", (e) => {
+        const selected = careers.find((c) => c.title === e.target.value);
+        if (selected) {
+          details.innerHTML = selected.description;
+          details.scrollIntoView({ behavior: "smooth" });
+        } else {
+          details.innerHTML = "";
+        }
+      });
+    </script>
+  </body>
+</html>

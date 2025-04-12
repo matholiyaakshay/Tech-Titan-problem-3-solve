@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Track Titans - Register / Login</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: #f1f5f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+      }
+
+      h2 {
+        text-align: center;
+        color: #1e3a8a;
+        margin-bottom: 25px;
+      }
+
+      input,
+      select,
+      button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 12px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+      }
+
+      button {
+        background-color: #2563eb;
+        color: white;
+        font-weight: bold;
+        border: none;
+        margin-top: 20px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #1d4ed8;
+      }
+
+      .toggle-text {
+        margin-top: 15px;
+        text-align: center;
+        color: #2563eb;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .section-title {
+        font-weight: bold;
+        margin-top: 10px;
+        color: #475569;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Registration Form</h2>
+
+      <!-- Registration Section -->
+      <div id="registerSection">
+        Name
+        <input type="text" id="name" placeholder="Enter Name" required />
+        <br /><br />Email
+        <input
+          type="email"
+          id="email"
+          placeholder="Email"
+          required
+        /><br /><br />
+        Password
+        <input
+          type="password"
+          id="pass"
+          placeholder="Password"
+          required
+        /><br /><br />
+        Age
+        <input type="number" id="age" placeholder="Age" required />
+        <button onclick="registerUser()">Register</button>
+        <div class="toggle-text" onclick="toggleForm('login')">
+          Already have an account? Login
+        </div>
+      </div>
+
+      <!-- Login Section -->
+      <div id="loginSection" class="hidden">
+        <div class="section-title">Login (Existing User)</div>
+        <input type="email" id="loginEmail" placeholder="Enter your email" />
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Enter your password"
+        />
+        <button onclick="loginUser()">Login</button>
+        <div class="toggle-text" onclick="toggleForm('register')">
+          New user? Register here
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleForm(formType) {
+        const register = document.getElementById("registerSection");
+        const login = document.getElementById("loginSection");
+
+        if (formType === "login") {
+          register.classList.add("hidden");
+          login.classList.remove("hidden");
+        } else {
+          login.classList.add("hidden");
+          register.classList.remove("hidden");
+        }
+      }
+
+      function registerUser() {
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("pass").value;
+        const age = document.getElementById("age").value;
+
+        if (!name || !email || !password || !age) {
+          alert("Please fill all fields.");
+          return;
+        }
+
+        const userData = { name, email, password, age };
+        localStorage.setItem("trackTitansUser", JSON.stringify(userData));
+        alert("Registration successful!");
+        window.location.href = "index.html"; // Changed from index.html to main.html
+      }
+
+      function loginUser() {
+        const loginEmail = document.getElementById("loginEmail").value.trim();
+        const loginPassword = document.getElementById("loginPassword").value;
+        const userData = JSON.parse(localStorage.getItem("trackTitansUser"));
+
+        if (userData && userData.email === loginEmail && userData.password === loginPassword) {
+          window.location.href = "index.html"; // Changed from index.html to main.html
+        } else {
+          alert("Invalid credentials. Please try again or register.");
+        }
+      }
+    </script>
+  </body>
+</html>

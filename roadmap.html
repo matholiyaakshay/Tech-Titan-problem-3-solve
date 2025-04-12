@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Career Roadmap Planner</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #e0f7fa, #e1bee7);
+        background-size: 300% 300%;
+        animation: bgShift 15s ease infinite;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+
+      @keyframes bgShift {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 50px;
+        background-color: #0d1b2a;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+      }
+
+      .navbar h3 {
+        margin: 0;
+        font-size: 30px;
+        font-family: 'Pacifico', cursive;
+        letter-spacing: 2px;
+      }
+
+      #img {
+        height: 60px;
+        width: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      #name {
+        flex: 1;
+        text-align: center;
+      }
+
+      .profile-container {
+        position: relative;
+      }
+
+      .profile-icon {
+        width: 42px;
+        height: 42px;
+        background: linear-gradient(135deg, #5c6bc0, #26c6da);
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 18px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .profile-icon:hover {
+        transform: scale(1.15);
+      }
+
+      .profile-dropdown {
+        position: absolute;
+        top: 50px;
+        right: 0;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        padding: 15px;
+        width: 220px;
+        display: none;
+        z-index: 10;
+      }
+
+      .profile-container:hover .profile-dropdown {
+        display: block;
+      }
+
+      .profile-dropdown p {
+        margin: 6px 0;
+        font-size: 14px;
+      }
+
+      .container {
+        max-width: 700px;
+        margin: 100px auto 40px;
+        background: #ffffff;
+        padding: 35px 30px;
+        border-radius: 20px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1.2s ease;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      h2 {
+        text-align: center;
+        color: #4a148c;
+        font-size: 28px;
+        margin-bottom: 25px;
+      }
+
+      label {
+        font-weight: 600;
+        display: block;
+        margin-top: 18px;
+        font-size: 16px;
+        color: #333;
+      }
+
+      select, input[type="radio"] {
+        margin-right: 10px;
+      }
+
+      select {
+        padding: 12px 14px;
+        width: 100%;
+        border-radius: 10px;
+        border: 1.5px solid #ccc;
+        font-size: 16px;
+        background-color: #f9f9f9;
+        transition: border 0.3s;
+      }
+
+      select:focus {
+        outline: none;
+        border-color: #7b1fa2;
+      }
+
+      .career-group {
+        margin-top: 12px;
+        padding-left: 10px;
+      }
+
+      .career-group label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 500;
+        font-size: 15px;
+        color: #4a148c;
+      }
+
+      button {
+        margin-top: 25px;
+        padding: 14px;
+        width: 100%;
+        background: linear-gradient(135deg, #ab47bc, #7e57c2);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+      }
+
+      button:hover {
+        background: linear-gradient(135deg, #7e57c2, #ab47bc);
+        transform: scale(1.02);
+      }
+
+      .roadmap {
+        margin-top: 30px;
+        background: #f3e5f5;
+        padding: 20px;
+        border-left: 5px solid #7e57c2;
+        border-radius: 10px;
+        font-size: 15px;
+      }
+
+      .roadmap h3 {
+        margin-top: 0;
+        color: #6a1b9a;
+      }
+
+      .roadmap ol {
+        padding-left: 20px;
+      }
+
+      .error {
+        color: #d32f2f;
+        font-weight: 500;
+        font-size: 15px;
+      }
+
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 10px 20px;
+        }
+        
+        #img {
+          height: 50px;
+        }
+        
+        .navbar h3 {
+          font-size: 24px;
+        }
+        
+        .container {
+          padding: 25px;
+          margin-top: 90px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .navbar {
+          padding: 8px 15px;
+        }
+        
+        #img {
+          height: 40px;
+        }
+        
+        .navbar h3 {
+          font-size: 20px;
+        }
+        
+        .profile-icon {
+          width: 36px;
+          height: 36px;
+          font-size: 16px;
+        }
+        
+        .container {
+          padding: 20px;
+          margin-top: 80px;
+        }
+        
+        h2 {
+          font-size: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <div>
+        <img src="img.png" id="img" alt="Track Titan Logo" />
+      </div>
+      <div id="name">
+        <h3>
+          <span style="color: #00acc1">Track</span>
+          <span style="color: #1e88e5">Titan</span>
+        </h3>
+      </div>
+      <div class="profile-container">
+        <div class="profile-icon">U</div>
+        <div class="profile-dropdown">
+          <p><strong>Name:</strong> User Name</p>
+          <p><strong>Email:</strong> user@example.com</p>
+          <p><strong>Role:</strong> Student</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>🎓 Career Roadmap Planner</h2>
+
+      <label for="standard">📘 Select your Standard:</label>
+      <select id="standard" onchange="showCareerOptions()">
+        <option value="">-- Choose --</option>
+        <option value="10">Standard 10</option>
+        <option value="12">Standard 12</option>
+      </select>
+
+      <div id="careerOptions" style="display: none">
+        <label>🌟 Select your dream profession:</label>
+        <div class="career-group" id="careerChoices"></div>
+      </div>
+
+      <button onclick="showRoadmap()">Show My Roadmap</button>
+
+      <div class="roadmap" id="roadmapOutput" style="display: none"></div>
+    </div>
+
+    <script>
+      const careerRoadmaps = {
+        engineer: [
+          "Choose Science stream with Maths (after 10th)",
+          "Prepare for GUJCET/JEE (during 11th-12th)",
+          "Get into a B.E/B.Tech college",
+          "Select your branch (e.g., Computer, Mechanical, Civil)",
+          "Internships & Skill Building (2nd/3rd year)",
+          "Final Year Project + Campus Placements",
+          "Get a job or pursue M.Tech/MS/MBA",
+        ],
+        doctor: [
+          "Choose Science stream with Biology (after 10th)",
+          "Prepare for NEET (during 11th-12th)",
+          "Crack NEET & get into MBBS college",
+          "Complete MBBS (5.5 years)",
+          "Do Internship + NEET PG if needed",
+          "Specialize and start practicing",
+        ],
+        designer: [
+          "Choose any stream after 10th",
+          "Pursue a diploma or bachelor's degree in design (Fashion, Graphic, UI/UX, Interior)",
+          "Build strong portfolio and personal brand",
+          "Internships during or after college",
+          "Apply to design studios, agencies, or freelance",
+        ],
+        ca: [
+          "Choose Commerce stream after 10th",
+          "Register for CA Foundation after 12th",
+          "Clear CA Foundation Exam",
+          "Complete CA Intermediate and Articleship (3 years)",
+          "Clear CA Final Exam",
+          "Get certified and apply for jobs or open your practice",
+        ],
+        ias: [
+          "Choose any stream (Humanities preferred)",
+          "Complete Graduation in any field",
+          "Prepare for UPSC Civil Services Exam (1-2 years)",
+          "Clear Prelims, Mains and Interview",
+          "Get selected for IAS/IPS/IFS roles",
+        ],
+      };
+
+      const careersByStandard = {
+        10: {
+          engineer: "Engineer",
+          doctor: "Doctor",
+          designer: "Designer",
+          ca: "Chartered Accountant",
+          ias: "IAS Officer",
+        },
+        12: {
+          engineer: "Engineer",
+          doctor: "Doctor",
+          designer: "Designer",
+          ca: "Chartered Accountant",
+          ias: "IAS Officer",
+        },
+      };
+
+      function showCareerOptions() {
+        const standard = document.getElementById("standard").value;
+        const container = document.getElementById("careerChoices");
+        const section = document.getElementById("careerOptions");
+        container.innerHTML = "";
+        if (standard) {
+          const careers = careersByStandard[standard];
+          for (const key in careers) {
+            const label = document.createElement("label");
+            label.innerHTML = `
+              <input type="radio" name="career" value="${key}"> ${careers[key]}
+            `;
+            container.appendChild(label);
+          }
+          section.style.display = "block";
+        } else {
+          section.style.display = "none";
+        }
+      }
+
+      function showRoadmap() {
+        const selectedCareer = document.querySelector(
+          'input[name="career"]:checked'
+        );
+        const output = document.getElementById("roadmapOutput");
+        if (selectedCareer) {
+          const roadmap = careerRoadmaps[selectedCareer.value];
+          output.innerHTML =
+            "<h3>Your Career Roadmap:</h3><ol>" +
+            roadmap.map((step) => `<li>${step}</li>`).join("") +
+            "</ol>";
+          output.style.display = "block";
+        } else {
+          output.innerHTML =
+            "<p class='error'>⚠️ Please select a dream profession.</p>";
+          output.style.display = "block";
+        }
+      }
+    </script>
+  </body>
+</html>

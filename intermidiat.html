@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Track Titan - Career Planner</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #e6f8fa;
+      min-height: 100vh;
+    }
+    
+    @keyframes bgShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 50px;
+      background-color: #0d1b2a;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .navbar h3 {
+      margin: 0;
+      font-size: 30px;
+      font-family: 'Pacifico', cursive;
+      letter-spacing: 2px;
+    }
+
+    #img {
+      height: 60px;
+      width: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    #name {
+      flex: 1;
+      text-align: center;
+    }
+
+    .profile-container {
+      position: relative;
+    }
+
+    .profile-icon {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #5c6bc0, #26c6da);
+      border-radius: 50%;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .profile-icon:hover {
+      transform: scale(1.15);
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      padding: 15px;
+      width: 220px;
+      display: none;
+      z-index: 10;
+    }
+
+    .profile-container:hover .profile-dropdown {
+      display: block;
+    }
+
+    .profile-dropdown p {
+      margin: 6px 0;
+      font-size: 14px;
+    }
+    
+    .container {
+      margin-top: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      padding: 20px;
+    }
+
+    .card {
+      background: linear-gradient(to bottom right, #3ea8ff, #2a73ff);
+      color: white;
+      font-size: 22px;
+      padding: 30px 50px;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-align: center;
+      text-decoration: none;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .emoji {
+      font-size: 28px;
+      margin-right: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 10px 20px;
+      }
+      
+      #img {
+        height: 50px;
+      }
+      
+      .navbar h3 {
+        font-size: 24px;
+      }
+      
+      .card {
+        padding: 25px 30px;
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 8px 15px;
+      }
+      
+      #img {
+        height: 40px;
+      }
+      
+      .navbar h3 {
+        font-size: 20px;
+      }
+      
+      .profile-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+      }
+      
+      .card {
+        padding: 20px;
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div>
+      <img src="img.png" id="img" alt="Track Titan Logo" />
+    </div>
+    <div id="name">
+      <h3>
+        <span style="color: #00acc1">Track</span>
+        <span style="color: #1e88e5">Titan</span>
+      </h3>
+    </div>
+    <div class="profile-container">
+      <div class="profile-icon">U</div>
+      <div class="profile-dropdown">
+        <p><strong>Name:</strong> User Name</p>
+        <p><strong>Email:</strong> user@example.com</p>
+        <p><strong>Role:</strong> Student</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Select Standard options as clickable cards -->
+    <div class="card" onclick="goToCareer(10)">
+      <span class="emoji">📘</span> Standard 10
+    </div>
+    <div class="card" onclick="goToCareer(12)">
+      <span class="emoji">📚</span> Standard 12
+    </div>
+  </div>
+
+  <script>
+    function goToCareer(std) {
+      if (std === 10) {
+        window.location.href = "std-10.html"; // Link for Standard 10
+      } else if (std === 12) {
+        window.location.href = "std-12.html"; // Link for Standard 12
+      }
+    }
+  </script>
+
+</body>
+</html>
